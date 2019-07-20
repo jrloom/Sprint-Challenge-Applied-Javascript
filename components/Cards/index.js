@@ -17,3 +17,43 @@
 // </div>
 //
 // Create a card for each of the articles and add the card to the DOM.
+
+const cardMaker = data => {
+  const card = document.createElement("div");
+  const headline = document.createElement("div");
+  const authorBox = document.createElement("div");
+  const imgContainer = document.createElement("div");
+  const img = document.createElement("img");
+  const author = document.createElement("span");
+
+  card.classList.add("card");
+  headline.classList.add("headline");
+  authorBox.classList.add("author");
+  imgContainer.classList.add("img-container");
+
+  img.src = data.authorPhoto;
+
+  headline.textContent = data.headline;
+  author.textContent = `By ${data.authorName}`;
+
+  card.appendChild(headline);
+  card.appendChild(authorBox);
+  authorBox.appendChild(imgContainer);
+  imgContainer.appendChild(img);
+  authorBox.appendChild(author);
+
+  return card;
+};
+
+axios
+  .get(`https://lambda-times-backend.herokuapp.com/articles`)
+  .then(resolve => {
+    for (topic in resolve.data.articles) {
+      resolve.data.articles[topic].forEach(data => document.querySelector(".cards-container").appendChild(cardMaker(data)));
+    }
+  })
+  .catch(error => console.log(`Oh bother...`, error));
+
+// authorName: "FIDO WALKSALOT"
+// authorPhoto: "./assets/fido.jpg"
+// headline: "Bootstrap 5: Get a Sneak Peak at all the New Features"
