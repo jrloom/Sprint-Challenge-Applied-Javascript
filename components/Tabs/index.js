@@ -20,8 +20,5 @@ const tabMaker = data => {
 
 axios
   .get(`https://lambda-times-backend.herokuapp.com/topics`)
-  .then(resolve => {
-    console.log(resolve.data.topics);
-    resolve.data.topics.forEach(data => document.querySelector(".topics").appendChild(tabMaker(data)));
-  })
+  .then(resolve => resolve.data.topics.forEach(data => document.querySelector(".topics").appendChild(tabMaker(data))))
   .catch(error => console.log(`Whammy!`, error));
