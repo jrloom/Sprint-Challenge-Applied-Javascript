@@ -48,6 +48,13 @@ const cardMaker = data => {
 axios
   .get(`https://lambda-times-backend.herokuapp.com/articles`)
   .then(resolve => {
+    // resolve.data.articles.javascript.forEach(data => document.querySelector(".cards-container").appendChild(cardMaker(data)));
+    // resolve.data.articles.bootstrap.forEach(data => document.querySelector(".cards-container").appendChild(cardMaker(data)));
+    // resolve.data.articles.technology.forEach(data => document.querySelector(".cards-container").appendChild(cardMaker(data)));
+    // resolve.data.articles.jquery.forEach(data => document.querySelector(".cards-container").appendChild(cardMaker(data)));
+    // resolve.data.articles.node.forEach(data => document.querySelector(".cards-container").appendChild(cardMaker(data)));
+    // all of the above, or... not sure if the below is correct - MDN doesn't seem to think so, but I may have read that wrong
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in#Why_Use_for...in
     for (index in resolve.data.articles) {
       resolve.data.articles[index].forEach(data => document.querySelector(".cards-container").appendChild(cardMaker(data)));
     }
