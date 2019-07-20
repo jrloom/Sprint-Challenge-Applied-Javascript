@@ -48,12 +48,8 @@ const cardMaker = data => {
 axios
   .get(`https://lambda-times-backend.herokuapp.com/articles`)
   .then(resolve => {
-    for (topic in resolve.data.articles) {
-      resolve.data.articles[topic].forEach(data => document.querySelector(".cards-container").appendChild(cardMaker(data)));
+    for (index in resolve.data.articles) {
+      resolve.data.articles[index].forEach(data => document.querySelector(".cards-container").appendChild(cardMaker(data)));
     }
   })
   .catch(error => console.log(`Oh bother...`, error));
-
-// authorName: "FIDO WALKSALOT"
-// authorPhoto: "./assets/fido.jpg"
-// headline: "Bootstrap 5: Get a Sneak Peak at all the New Features"
