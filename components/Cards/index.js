@@ -17,3 +17,46 @@
 // </div>
 //
 // Create a card for each of the articles and add the card to the DOM.
+
+const cardMaker = data => {
+  const card = document.createElement("div");
+  const headline = document.createElement("div");
+  const authorBox = document.createElement("div");
+  const imgContainer = document.createElement("div");
+  const img = document.createElement("img");
+  const author = document.createElement("span");
+
+  card.classList.add("card");
+  headline.classList.add("headline");
+  authorBox.classList.add("author");
+  imgContainer.classList.add("img-container");
+
+  img.src = data.authorPhoto;
+
+  headline.textContent = data.headline;
+  author.textContent = `By ${data.authorName}`;
+
+  card.appendChild(headline);
+  card.appendChild(authorBox);
+  authorBox.appendChild(imgContainer);
+  imgContainer.appendChild(img);
+  authorBox.appendChild(author);
+
+  return card;
+};
+
+axios
+  .get(`https://lambda-times-backend.herokuapp.com/articles`)
+  .then(resolve => {
+    // resolve.data.articles.javascript.forEach(data => document.querySelector(".cards-container").appendChild(cardMaker(data)));
+    // resolve.data.articles.bootstrap.forEach(data => document.querySelector(".cards-container").appendChild(cardMaker(data)));
+    // resolve.data.articles.technology.forEach(data => document.querySelector(".cards-container").appendChild(cardMaker(data)));
+    // resolve.data.articles.jquery.forEach(data => document.querySelector(".cards-container").appendChild(cardMaker(data)));
+    // resolve.data.articles.node.forEach(data => document.querySelector(".cards-container").appendChild(cardMaker(data)));
+    // all of the above, or... not sure if the below is correct - MDN doesn't seem to think so, but I may have read that wrong
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in#Why_Use_for...in
+    for (index in resolve.data.articles) {
+      resolve.data.articles[index].forEach(data => document.querySelector(".cards-container").appendChild(cardMaker(data)));
+    }
+  })
+  .catch(error => console.log(`Oh bother...`, error));
